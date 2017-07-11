@@ -27,9 +27,10 @@ class Game():
                              '@',
                              (255, 255, 255))
             self.screen.flush()
+            self.screen.clear(self.player.x, self.player.y)
 
     def key_pressed(self, key):
-        self.player.move(0, -1)
+        self.player.move(0, 1)
 
 
 class GameLoop():

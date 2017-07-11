@@ -42,3 +42,14 @@ class ScreenTests(unittest.TestCase):
         screen = Screen()
 
         self.assertFalse(screen.is_closed())
+
+    def test_clears_screen_via_tdl(self):
+        #TODO - test for drawing + clearing out of bounds
+        screen = Screen()
+        screen.init(80, 80, 'g', False)
+
+        screen.console = mock.MagicMock()
+
+        screen.clear(10, 10)
+
+        screen.console.draw_char.assert_called_with(10, 10, ' ', bg=None)

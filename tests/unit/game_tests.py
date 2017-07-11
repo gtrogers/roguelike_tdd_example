@@ -57,6 +57,19 @@ class GameTests(unittest.TestCase):
         screen.draw.assert_called()
         screen.flush.assert_called()
 
+    def test_drawing_clears_old_position(self):
+        screen = Screen()
+        screen.clear = mock.MagicMock()
+        game = Game(screen)
+
+        game.start()
+        game.player.x = 10
+        game.player.y = 10
+
+        game.draw()
+
+        screen.clear.assert_called_with(10, 10)
+
     def test_draws_player_at_player_x_and_y(self):
         screen = Screen()
         screen.draw = mock.MagicMock()
@@ -78,7 +91,7 @@ class GameTests(unittest.TestCase):
 
         game.key_pressed("DOWN")
 
-        game.player.move.assert_called_with(0, -1)
+        game.player.move.assert_called_with(0, 1)
 
 class TestGameLoop(unittest.TestCase):
     def test_tick_returns_true_while_screen_is_open(self):

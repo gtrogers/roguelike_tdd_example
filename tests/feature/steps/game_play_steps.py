@@ -27,4 +27,4 @@ def step_impl(context):
 
 @then('the player moves down')
 def step_impl(context):
-    context.screen.draw.assert_called_with(1,0,'@', (255, 255, 255))
+    context.screen.draw.assert_called_with(1,2,'@', (255, 255, 255))

@@ -20,6 +20,9 @@ class Screen():
                                 title=title,
                                 fullscreen=fullscreen)
 
+    def clear(self, x, y):
+        self.console.draw_char(x, y, ' ', bg=None)
+
     def draw(self, x, y, char, color):
         self.console.draw_char(x, y, char, color)
 
