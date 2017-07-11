@@ -4,6 +4,8 @@ from behave import given, when, then, step
 
 import tdl
 
+from tests.util import StubKeyEvent
+
 from rl import game, screen
 
 
@@ -21,7 +23,7 @@ def step_impl(context):
 
 @when('the down key is pressed')
 def step_impl(context):
-    tdl.event.key_wait = MagicMock(return_value="DOWN")
+    tdl.event.key_wait = MagicMock(return_value=StubKeyEvent("DOWN"))
     context.game_loop.tick()
 
 

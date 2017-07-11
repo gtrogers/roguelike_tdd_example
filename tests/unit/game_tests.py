@@ -3,6 +3,8 @@ from unittest import mock
 
 import tdl
 
+from tests.util import StubKeyEvent
+
 from rl.game import Game, GameError, GameLoop
 from rl.screen import Screen
 
@@ -84,14 +86,23 @@ class GameTests(unittest.TestCase):
         white = (255, 255, 255)
         screen.draw.assert_called_with(10, 10, '@', white)
 
-    def test_moves_player_when_down_is_pressed(self):
+    def test_moves_player_based_on_arrow_keys(self):
         screen = Screen()
         game = Game(screen)
         game.player = mock.MagicMock()
 
         game.key_pressed("DOWN")
-
         game.player.move.assert_called_with(0, 1)
+
+        game.key_pressed("UP")
+        game.player.move.assert_called_with(0, -1)
+
+        game.key_pressed("LEFT")
+        game.player.move.assert_called_with(-1, 0)
+
+        game.key_pressed("RIGHT")
+        game.player.move.assert_called_with(1, 0)
+
 
 class TestGameLoop(unittest.TestCase):
     def test_tick_returns_true_while_screen_is_open(self):
@@ -117,7 +128,7 @@ class TestGameLoop(unittest.TestCase):
         game_loop = GameLoop(game)
         game_loop.handle_input = mock.MagicMock()
 
-        tdl.event.key_wait = mock.MagicMock(return_value="DOWN")
+        tdl.event.key_wait = mock.MagicMock(return_value=StubKeyEvent("DOWN"))
 
         game_loop.tick()
 
@@ -139,7 +150,7 @@ class TestGameLoop(unittest.TestCase):
         game = Game(screen)
         gl = GameLoop(game)
         gl.handle_input = mock.MagicMock()
-        tdl.event.key_wait = mock.MagicMock(return_value="FOO")
+        tdl.event.key_wait = mock.MagicMock(return_value=StubKeyEvent("FOO"))
 
         gl.wait_for_input()
 

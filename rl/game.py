@@ -11,6 +11,12 @@ class Game():
     def __init__(self, screen):
         self.screen = screen
         self.player = player.Player()
+        self._vectors = {
+                "DOWN": (0, 1),
+                "UP": (0, -1),
+                "LEFT": (-1, 0),
+                "RIGHT": (1, 0)
+                }
 
     def start(self):
         if not self.screen.is_ready():
@@ -30,7 +36,9 @@ class Game():
             self.screen.clear(self.player.x, self.player.y)
 
     def key_pressed(self, key):
-        self.player.move(0, 1)
+        vec = self._vectors.get(key, None)
+        if vec:
+            self.player.move(*vec)
 
 
 class GameLoop():
@@ -52,7 +60,7 @@ class GameLoop():
     def wait_for_input(self):
         key = tdl.event.key_wait()
 
-        self.handle_input(key)
+        self.handle_input(key.key)
 
     def loop(self):
         shouldLoop = True
