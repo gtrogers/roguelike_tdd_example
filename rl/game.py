@@ -50,8 +50,3 @@ class GameLoop():
 def new_game(screen):
     game = Game(screen)
     return GameLoop(game)
-
-
-if __name__ == "__main__":
-    screen = screen.Screen()
-    gl = new_game(screen).loop()
