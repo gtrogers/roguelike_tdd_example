@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 
-from rl.game import Game, GameError
+from rl.game import Game, GameError, GameLoop
 from rl.screen import Screen
 
 
@@ -48,3 +48,21 @@ class GameTests(unittest.TestCase):
 
         screen.draw.assert_called()
         screen.flush.assert_called()
+
+
+class TestGameLoop(unittest.TestCase):
+    def test_tick_returns_true_while_screen_is_open(self):
+        screen = Screen()
+        screen.is_closed = mock.MagicMock(return_value=False)
+        game = Game(screen)
+        game_loop = GameLoop(game)
+
+        self.assertTrue(game_loop.tick())
+
+    def test_tick_returns_false_when_window_is_closed(self):
+        screen = Screen()
+        screen.is_closed = mock.MagicMock(return_value=True)
+        game = Game(screen)
+        game_loop = GameLoop(game)
+
+        self.assertFalse(game_loop.tick())

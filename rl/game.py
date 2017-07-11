@@ -32,7 +32,7 @@ class GameLoop():
         game.start()
 
     def tick(self):
-        if not tdl.event.is_window_closed():
+        if not self.game.screen.is_closed():
             self.game.draw()
             return True
         else:
