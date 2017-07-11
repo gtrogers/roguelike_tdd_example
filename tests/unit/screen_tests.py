@@ -37,3 +37,8 @@ class ScreenTests(unittest.TestCase):
         screen.draw(1, 2, 'g', white)
 
         screen.console.draw_char.assert_called_with(1, 2, 'g', white)
+
+    def test_returns_value_from_tdl_window_event(self):
+        screen = Screen()
+
+        self.assertFalse(screen.is_closed())

@@ -8,7 +8,7 @@ class Screen():
         return (self.console != None)
 
     def is_closed(self):
-        return tdl.event.is_window_closed()
+        return bool(tdl.event.is_window_closed())
 
     def init(self, width, height, title, fullscreen):
         tdl.set_font('arial10x10.png',
