@@ -21,4 +21,4 @@ class Screen():
         self.console.draw_char(x, y, char, color)
 
     def flush(self):
-        pass
+        tdl.flush()
