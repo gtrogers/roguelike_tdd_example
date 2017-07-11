@@ -2,6 +2,8 @@ from unittest.mock import MagicMock
 
 from behave import given, when, then, step
 
+import tdl
+
 from rl import game, screen
 
 
@@ -13,14 +15,16 @@ def _mock_draw_method(screen):
 def step_impl(context):
     context.screen = screen.Screen()
     _mock_draw_method(context.screen)
-    context.game_loop = game.new_game(context.screen)
+    gl = game.new_game(context.screen)
+    context.game_loop = gl
 
 
-@when('the game updates')
+@when('the down key is pressed')
 def step_impl(context):
+    tdl.event.key_wait = MagicMock(return_value="DOWN")
     context.game_loop.tick()
 
 
-@then('the player gets drawn')
+@then('the player moves down')
 def step_impl(context):
-    context.screen.draw.assert_called_with(1,1,'@', (255, 255, 255))
+    context.screen.draw.assert_called_with(1,0,'@', (255, 255, 255))

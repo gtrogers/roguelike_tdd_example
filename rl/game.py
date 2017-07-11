@@ -1,7 +1,6 @@
 import tdl
 
-import rl.screen
-
+from rl import screen, player
 
 class GameError(Exception):
     def __init__(self, message):
@@ -11,6 +10,7 @@ class GameError(Exception):
 class Game():
     def __init__(self, screen):
         self.screen = screen
+        self.player = player.Player()
 
     def start(self):
         if not self.screen.is_ready():
@@ -22,8 +22,14 @@ class Game():
         if not self.screen.is_ready():
             raise GameError("Cannot draw to unitialised screen")
         else:
-            self.screen.draw(1, 1, '@', (255, 255, 255))
+            self.screen.draw(self.player.x,
+                             self.player.y,
+                             '@',
+                             (255, 255, 255))
             self.screen.flush()
+
+    def key_pressed(self, key):
+        self.player.move(0, -1)
 
 
 class GameLoop():
@@ -33,10 +39,19 @@ class GameLoop():
 
     def tick(self):
         if not self.game.screen.is_closed():
+            self.wait_for_input()
             self.game.draw()
             return True
         else:
             return False
+
+    def handle_input(self, key):
+        self.game.key_pressed(key)
+
+    def wait_for_input(self):
+        key = tdl.event.key_wait()
+
+        self.handle_input(key)
 
     def loop(self):
         shouldLoop = True

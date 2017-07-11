@@ -1,6 +1,6 @@
 Feature: Game play
 
-    Scenario: Drawing the player
+    Scenario: Moving the player
         Given a new game
-         When the game updates
-         Then the player gets drawn
+         When the down key is pressed
+         Then the player moves down
