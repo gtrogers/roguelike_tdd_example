@@ -15,16 +15,25 @@ class Screen():
                      greyscale=True,
                      altLayout=True)
 
-        self.console = tdl.init(width,
+        self.width = width
+        self.height = height
+
+        self._root_console = tdl.init(width,
                                 height,
                                 title=title,
                                 fullscreen=fullscreen)
+
+        self.console = tdl.Console(width, height)
 
     def clear(self, x, y):
         self.console.draw_char(x, y, ' ', bg=None)
 
     def draw(self, x, y, char, color):
         self.console.draw_char(x, y, char, color)
+        self._root_console.blit(self.console,
+                                0, 0,
+                                self.width, self.height,
+                                0, 0)
 
     def flush(self):
         tdl.flush()

@@ -31,12 +31,16 @@ class ScreenTests(unittest.TestCase):
     def test_calls_through_to_tdl_for_drawing(self):
         screen = Screen()
 
+        screen.init(80, 80, "Title", False)
         screen.console = mock.MagicMock()
+        screen._root_console = mock.MagicMock()
+
 
         white = (255, 255, 255)
         screen.draw(1, 2, 'g', white)
 
         screen.console.draw_char.assert_called_with(1, 2, 'g', white)
+        screen._root_console.blit.assert_called()
 
     def test_returns_value_from_tdl_window_event(self):
         screen = Screen()
