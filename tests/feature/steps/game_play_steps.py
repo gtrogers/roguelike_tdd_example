@@ -30,3 +30,7 @@ def step_impl(context):
 @then('the player moves down')
 def step_impl(context):
     context.screen.draw.assert_called_with(1,2,'@', (255, 255, 255))
+
+@then('the NPC gets drawn')
+def step_impl(context):
+    context.screen.draw.assert_called_with(1,1,'?', (255, 255, 255))

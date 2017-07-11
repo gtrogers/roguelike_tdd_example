@@ -4,3 +4,4 @@ Feature: Game play
         Given a new game
          When the down key is pressed
          Then the player moves down
+          And the NPC gets drawn

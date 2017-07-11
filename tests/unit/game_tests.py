@@ -10,11 +10,11 @@ from rl.screen import Screen
 
 
 class GameTests(unittest.TestCase):
-    def test_game_is_created_with_a_player(self):
+    def test_game_is_created_with_a_player_and_a_npc(self):
         screen = Screen()
         game = Game(screen)
 
-        self.assertIsNotNone(game.player)
+        self.assertEqual(len(game.objects), 2)
 
     def test_screen_is_initialised_to_correct_size(self):
         screen = Screen()
@@ -70,7 +70,8 @@ class GameTests(unittest.TestCase):
 
         game.draw()
 
-        screen.clear.assert_called_with(10, 10)
+        calls = [mock.call(10, 10), mock.call(1, 1)]
+        screen.clear.assert_has_calls(calls)
 
     def test_draws_player_at_player_x_and_y(self):
         screen = Screen()
@@ -84,7 +85,8 @@ class GameTests(unittest.TestCase):
         game.draw()
 
         white = (255, 255, 255)
-        screen.draw.assert_called_with(10, 10, '@', white)
+        calls = [mock.call(10, 10, '@', white), mock.call(1, 1, '?', white)]
+        screen.draw.assert_has_calls(calls)
 
     def test_moves_player_based_on_arrow_keys(self):
         screen = Screen()
@@ -155,4 +157,3 @@ class TestGameLoop(unittest.TestCase):
         gl.wait_for_input()
 
         gl.handle_input.assert_called_with("FOO")
-
