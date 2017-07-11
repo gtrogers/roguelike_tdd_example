@@ -4,6 +4,9 @@ class Screen():
     def __init__(self):
         self.console = None
 
+    def is_ready(self):
+        return (self.console != None)
+
     def init(self, width, height, title, fullscreen):
         tdl.set_font('arial10x10.png',
                      greyscale=True,
@@ -14,5 +17,8 @@ class Screen():
                                 title=title,
                                 fullscreen=fullscreen)
 
-    def draw(self):
+    def draw(self, x, y, char, color):
+        self.console.draw_char(x, y, char, color)
+
+    def flush(self):
         pass
