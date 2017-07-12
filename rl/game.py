@@ -35,7 +35,7 @@ class Game():
         if not self.screen.is_ready():
             raise GameError("Cannot draw to unitialised screen")
         else:
-            self.map.draw()
+            self.map.draw(self.screen)
             self._draw_objects_on_screen()
             self.screen.flush()
             self._clear_objects_on_screen()
@@ -88,6 +88,6 @@ class GameLoop():
 
 
 def new_game(screen):
-    theMap = Map(screen)
+    theMap = Map()
     game = Game(screen, theMap)
     return GameLoop(game)

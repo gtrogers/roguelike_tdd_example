@@ -6,8 +6,8 @@ from rl.map import Map
 class MapTests(unittest.TestCase):
     def test_map_draw_a_tile(self):
         screen = mock.MagicMock()
-        map = Map(screen)
-        map.draw()
+        map = Map()
+        map.draw(screen)
 
         x = 2
         y = 2
