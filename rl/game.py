@@ -1,6 +1,8 @@
 import tdl
 
 from rl import screen, game_object
+from rl.map import Map
+
 
 class GameError(Exception):
     def __init__(self, message):
@@ -8,19 +10,20 @@ class GameError(Exception):
 
 
 class Game():
-    def __init__(self, screen):
+    def __init__(self, screen, theMap):
         self.screen = screen
+        self.map = theMap
         self.player = game_object.GameObject('@')
         self.objects = [
             self.player,
             game_object.GameObject('?')
         ]
         self._vectors = {
-                "DOWN": (0, 1),
-                "UP": (0, -1),
-                "LEFT": (-1, 0),
-                "RIGHT": (1, 0)
-                }
+            "DOWN": (0, 1),
+            "UP": (0, -1),
+            "LEFT": (-1, 0),
+            "RIGHT": (1, 0)
+        }
 
     def start(self):
         if not self.screen.is_ready():
@@ -32,6 +35,7 @@ class Game():
         if not self.screen.is_ready():
             raise GameError("Cannot draw to unitialised screen")
         else:
+            self.map.draw()
             self._draw_objects_on_screen()
             self.screen.flush()
             self._clear_objects_on_screen()
@@ -51,6 +55,7 @@ class Game():
     def _clear_objects_on_screen(self):
         for o in self.objects:
             self.screen.clear(o.x, o.y)
+
 
 class GameLoop():
     def __init__(self, game):
@@ -83,5 +88,6 @@ class GameLoop():
 
 
 def new_game(screen):
-    game = Game(screen)
+    theMap = Map(screen)
+    game = Game(screen, theMap)
     return GameLoop(game)

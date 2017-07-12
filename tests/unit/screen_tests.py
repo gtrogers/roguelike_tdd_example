@@ -7,6 +7,7 @@ from rl.screen import Screen
 
 # TODO - maybe stub tdl eventually, feels bad to mock over methods we don't control
 
+
 class ScreenTests(unittest.TestCase):
     def test_flushes_tdl(self):
         tdl.flush = mock.MagicMock()
@@ -35,7 +36,6 @@ class ScreenTests(unittest.TestCase):
         screen.console = mock.MagicMock()
         screen._root_console = mock.MagicMock()
 
-
         white = (255, 255, 255)
         screen.draw(1, 2, 'g', white)
 
@@ -47,8 +47,23 @@ class ScreenTests(unittest.TestCase):
 
         self.assertFalse(screen.is_closed())
 
+    def test_drawing_a_wall(self):
+        screen = Screen()
+
+        screen.init(80, 80, "Title", False)
+        screen.console = mock.MagicMock()
+
+        wall_x = 10
+        wall_y = 10
+        bg_colour = (100, 100, 100)
+
+        screen.draw_a_wall(wall_x, wall_y, bg_colour)
+
+        screen.console.draw_char.assert_called_with(
+            wall_x, wall_y, None, fg=None, bg=bg_colour)
+
     def test_clears_screen_via_tdl(self):
-        #TODO - test for drawing + clearing out of bounds
+        # TODO - test for drawing + clearing out of bounds
         screen = Screen()
         screen.init(80, 80, 'g', False)
 

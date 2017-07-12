@@ -13,6 +13,7 @@ from rl import game, screen
 def step_impl(context):
     context.screen = screen.Screen()
     context.screen.draw = MagicMock()
+    context.screen.draw_a_wall = MagicMock()
     gl = game.new_game(context.screen)
     context.game_loop = gl
 
@@ -42,6 +43,6 @@ def step_impl(context):
     context.screen.draw.assert_any_call(1, 2, '@', (255, 255, 255))
 
 
-@then('the NPC gets drawn')
+@then('the map gets drawn')
 def step_impl(context):
-    context.screen.draw.assert_any_call(1, 1, '?', (255, 255, 255))
+    context.screen.draw_a_wall.assert_any_call(2, 2, (155, 155, 155))

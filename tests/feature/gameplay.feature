@@ -10,3 +10,8 @@ Feature: Game play
          When the game starts
           And the down key is pressed
          Then the player moves down
+
+    Scenario: Drawing the map
+        Given a new game
+         When the game starts
+         Then the map gets drawn

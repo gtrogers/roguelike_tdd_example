@@ -1,5 +1,6 @@
 import tdl
 
+
 class Screen():
     def __init__(self):
         self.console = None
@@ -19,9 +20,9 @@ class Screen():
         self.height = height
 
         self._root_console = tdl.init(width,
-                                height,
-                                title=title,
-                                fullscreen=fullscreen)
+                                      height,
+                                      title=title,
+                                      fullscreen=fullscreen)
 
         self.console = tdl.Console(width, height)
 
@@ -34,6 +35,9 @@ class Screen():
                                 0, 0,
                                 self.width, self.height,
                                 0, 0)
+
+    def draw_a_wall(self, x, y, bg_color):
+        self.console.draw_char(x, y, None, fg=None, bg=bg_color)
 
     def flush(self):
         tdl.flush()
