@@ -15,3 +15,8 @@ Feature: Game play
         Given a new game
          When the game starts
          Then the map gets drawn
+
+    Scenario: Walls
+       Given a game with walls
+        When the player walks into a wall
+        Then they should not move

@@ -1,5 +1,6 @@
 import unittest
 from  unittest import mock
+from expects import *
 
 from rl.tile import Tile
 from rl.map import Map
@@ -34,3 +35,10 @@ class MapTests(unittest.TestCase):
         theMap.draw(screen)
 
         screen.draw_a_wall.assert_any_call(10, 10, (155, 155, 155))
+
+    def test_getting_a_tile(self):
+        theMap = Map()
+
+        tile = theMap.getTile(1, 1)
+
+        expect(tile).to(be_a(Tile))

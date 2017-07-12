@@ -97,16 +97,16 @@ class GameTests(unittest.TestCase):
         game.player = mock.MagicMock()
 
         game.key_pressed("DOWN")
-        game.player.move.assert_called_with(0, 1)
+        game.player.move.assert_called_with(0, 1, mockMap)
 
         game.key_pressed("UP")
-        game.player.move.assert_called_with(0, -1)
+        game.player.move.assert_called_with(0, -1, mockMap)
 
         game.key_pressed("LEFT")
-        game.player.move.assert_called_with(-1, 0)
+        game.player.move.assert_called_with(-1, 0, mockMap)
 
         game.key_pressed("RIGHT")
-        game.player.move.assert_called_with(1, 0)
+        game.player.move.assert_called_with(1, 0, mockMap)
 
 
 class TestGameLoop(unittest.TestCase):

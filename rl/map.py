@@ -9,6 +9,9 @@ class Map():
         self.tiles[10][8] = Tile(True)
         self.tiles[10][7] = Tile(True)
 
+    def getTile(self, x, y):
+        return self.tiles[x][y]
+
     def draw(self, screen):
         for y in range(45):
             for x in range(80):

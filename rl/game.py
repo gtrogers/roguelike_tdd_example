@@ -43,7 +43,7 @@ class Game():
     def key_pressed(self, key):
         vec = self._vectors.get(key, None)
         if vec:
-            self.player.move(*vec)
+            self.player.move(*vec, self.map)
 
     def _draw_objects_on_screen(self):
         for o in self.objects:
