@@ -59,8 +59,8 @@ class GameLoop():
 
     def tick(self):
         if not self.game.screen.is_closed():
-            self.wait_for_input()
             self.game.draw()
+            self.wait_for_input()
             return True
         else:
             return False

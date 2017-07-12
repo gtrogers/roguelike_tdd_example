@@ -1,7 +1,12 @@
 Feature: Game play
 
+    Scenario: Drawing the player and NPC
+        Given a new game
+         When the game starts
+         Then the player and npc are drawn
+
     Scenario: Moving the player
         Given a new game
-         When the down key is pressed
+         When the game starts
+          And the down key is pressed
          Then the player moves down
-          And the NPC gets drawn
