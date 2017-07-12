@@ -45,4 +45,6 @@ def step_impl(context):
 
 @then('the map gets drawn')
 def step_impl(context):
-    context.screen.draw_a_wall.assert_any_call(2, 2, (155, 155, 155))
+    tiles_drawn = context.screen.draw_a_wall.call_count
+    print(tiles_drawn, "<--------------", 80*45)
+    assert tiles_drawn == (80 * 45)
